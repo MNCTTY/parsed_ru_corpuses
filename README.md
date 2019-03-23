@@ -3,11 +3,18 @@ This repository contains notebooks with parcing of russian text corpuses I've de
 
 I warn you that they could contains some mistakes or inaccuracies. I will fix it as fast as I find it. So, if you noticed something, feel free to notify me about that.
 
-### List of Contains:
+### Contains:
 
 * RIA dataset opening
-* SQuAD devset opening
-* Taiga opening 
+* Taiga opening
+  
+  For text classification
+   * Fontanka
+   * Lenta
+   * Interfax
+   * KP
+   
+   For NER
 
 and others.
 
