@@ -15,7 +15,7 @@ I warn you that they could contains some mistakes or inaccuracies. I will fix it
 Also this repository contains folder data with some raw data and results.
 All 3 data sourses can be found freely in the Internet:
 
-  **Taiga news dataset (Fontanka, Lenta, KP, Interfax)
-  RIA news dataset
-  FactRuEval 2016 dataset
-  **
+  **Taiga news dataset (Fontanka, Lenta, KP, Interfax)**
+  **RIA news dataset**
+  **FactRuEval 2016 dataset**
+  
