@@ -8,13 +8,14 @@ I warn you that they could contains some mistakes or inaccuracies. I will fix it
 * RIA dataset opening
 * Taiga opening
   
-  For text classification
-   * Fontanka
-   * Lenta
-   * Interfax
-   * KP
-   
-   For NER
+* Lenta tagged texts 2 csv 4 NLU task.ipynb
+* Lenta Crime Tagging for NER (entities OFF, SUF, DAT, LOC, CRI).ipynb
+* FactRuEval Parcing.ipynb
 
-and others.
+Also this repository contains folder data with some raw data and results.
+All 3 data sourses can be found freely in the Internet:
 
+  **Taiga news dataset (Fontanka, Lenta, KP, Interfax)
+  RIA news dataset
+  FactRuEval 2016 dataset
+  **
