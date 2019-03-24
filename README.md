@@ -1,11 +1,11 @@
 # parsed_ru_corpuses
-I've dealed with some Russian text corpuses, and parced them for some tasks. So, you can find here code for it.
-
-I warn you they could hide some mistakes or inaccuracies. If you noticed something, feel free to notify me about that.
+There could be some mistakes / inaccuracies: feel free to text me about or fix it.
 
 ### NOTEBOOKS:
 
 * **RIA corpuses opening.ipynb** 
+
+it is just opening
 * **Lenta tagged texts 2 csv 4 NLU task.ipynb**
 * **Lenta Crime Tagging for NER (entities OFF, SUF, DAT, LOC, CRI).ipynb**
 * **FactRuEval Parcing.ipynb**
