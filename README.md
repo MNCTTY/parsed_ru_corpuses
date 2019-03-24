@@ -1,7 +1,7 @@
 # parsed_ru_corpuses
-This repository contains notebooks with parcing of russian text corpuses I've dealed with.
+I've dealed with some Russian text corpuses, and parced them for some tasks. So, you can find here code for it.
 
-I warn you that they could contains some mistakes or inaccuracies. I will fix it as fast as I find it. So, if you noticed something, feel free to notify me about that.
+I warn you they could hide some mistakes or inaccuracies. If you noticed something, feel free to notify me about that.
 
 ### NOTEBOOKS:
 
