@@ -1,6 +1,6 @@
 # parsed_ru_corpuses
 
-There could be some mistakes / inaccuracies: feel free to text me about or fix it.
+There could be some mistakes / inaccuracies: feel free to text about or fix it.
 
 ### NOTEBOOKS:
 
