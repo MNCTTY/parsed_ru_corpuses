@@ -5,7 +5,7 @@ There could be some mistakes / inaccuracies: feel free to text about them or fix
 ### NOTEBOOKS:
 * **Lighttag annotations parsing for NER.ipynb**
 
-it is the opening of **LightTag** [https://demo.lighttag.io/individual/] annotation tool output json and parsing the data for NER task (my json has annotations only for NER).
+this one is an opening of **LightTag** [https://demo.lighttag.io/individual/] annotation tool output json and parsing the data for NER task (my json has annotations only for NER).
 
 Current json has one feature: it contains not one, but several different texts, separated by **/n#######/n**. You can even guess why ;]
 
