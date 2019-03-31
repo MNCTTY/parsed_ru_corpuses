@@ -5,11 +5,11 @@ There could be some mistakes / inaccuracies: feel free to text about them or fix
 ### NOTEBOOKS:
 * **Lighttag annotations parsing for NER.ipynb**
 
-it is the opening of LightTag [https://demo.lighttag.io/individual/] annotation tool's output json and parsing this data for NER task (json contains annotations only for NER).
+it is the opening of **LightTag** [https://demo.lighttag.io/individual/] annotation tool output json and parsing the data for NER task (my json has annotations only for NER).
 
-Our json has one feature: it contains not one, but several different texts, separated by /n#######/n (but incoming to Lighttag document is only one).
+Current json has one feature: it contains not one, but several different texts, separated by **/n#######/n**. You can even guess why ;]
 
-I highly recommend to use ideas (tags mappings to their corresponding text tokens) from this notebook to FactRuEval Parcing too. It works without any inaccuracies (in contrast to such part of code in original notebook).
+I **highly recommend** to use ideas of tags mappings to their corresponding text tokens from this notebook (**not from FactRuEval Parcing.ipynb**). It works without any inaccuracies (in contrast to FactRuEval Parcing.ipynb).
 
 * **RIA corpuses opening.ipynb** 
 
