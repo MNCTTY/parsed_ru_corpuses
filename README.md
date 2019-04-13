@@ -3,6 +3,13 @@
 There could be some mistakes / inaccuracies: feel free to text about them or fix.
 
 ### NOTEBOOKS:
+* **Lighttag annotations parsing for NER.ipynb**
+
+this one is an opening of **LightTag** [https://demo.lighttag.io/individual/] annotation tool output json and parsing the data for NER task (my json has annotations only for NER).
+
+Current json has one feature: it contains not one, but several different texts, separated by **/n#######/n**. You can even guess why ;]
+
+I **highly recommend** to use ideas of tags mappings to their corresponding text tokens from this notebook (**not from FactRuEval Parcing.ipynb**). It works without any inaccuracies (in contrast to FactRuEval Parcing.ipynb).
 
 * **RIA corpuses opening.ipynb** 
 
