@@ -24,6 +24,8 @@ It is a custom text tagging notebook. I take top100 Lenta news with a criminalit
 
 This one is a parcing data in FactRuEval format to comfortable DataFrame that can be usesd in NER tasks.
 
+If you really needs full and complete FactRuEval opening, use this [code:](https://github.com/bond005/deep_ner/blob/master/deep_ner/utils.py)
+
 Also this repository has a folder **data**, which contains some results of the notebooks' runs.
 
 All 3 data sourses can be found freely in the Internet:
