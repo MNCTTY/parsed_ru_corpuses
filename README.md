@@ -34,4 +34,6 @@ All 3 data sourses can be found freely in the Internet:
   * **[RIA news dataset]** <https://github.com/RossiyaSegodnya/ria_news_dataset>
   * **[FactRuEval 2016 dataset]** <https://github.com/dialogue-evaluation/factRuEval-2016>
   * **[Collection3]** <http://labinform.ru/pub/named_entities/descr_ne.htm>
+  * **[rbc]** <https://drive.google.com/drive/u/0/folders/1meQQrEa45PkSmBmgMbPiMUppXLWXEhR7>
+  * **[RBC lighttag annotated]** <https://drive.google.com/drive/u/0/folders/1meQQrEa45PkSmBmgMbPiMUppXLWXEhR7>
   
