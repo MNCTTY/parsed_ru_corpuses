@@ -6,7 +6,7 @@
 * **Collection3 Open.ipynb**
 * **FactRuEval Open.ipynb**
 
-This one is a parcing data in FactRuEval format to comfortable DataFrame that can be usesd in NER tasks.
+This one is a parcing data in FactRuEval format to a comfortable DataFrame that can be usesd in NER tasks.
 
 If you really needs full and complete FactRuEval opening, use this [code:](https://github.com/bond005/deep_ner/blob/master/deep_ner/utils.py)
 
