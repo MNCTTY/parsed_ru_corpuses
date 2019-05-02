@@ -12,8 +12,19 @@ If you really needs full and complete FactRuEval opening, use this [code:](https
 
 * **Lenta Conllu Open.ipynb**
 * **Lenta Tag for CustomNER.ipynb**
+
+Hand labeled 100 texts. The notebook contains exactly annotations.
+
 * **Lighttag Annotations Open.ipynb**
+
+An ultimate version of my relationships with resulting data format. It deals with multi-dim lighttag jsons correctly.
+Sometimes lighttag annotation tool renders a damaged json with shifted values. My code doesn't deal with such cases.
+
+
 * **Lighttag Text Form.ipynb**
+
+This code is forming text corpuses for next lighttag annotations. Given number of original news join to one text with special separators for future easy splitting.
+
 * **RBC Open.ipynb**
 * **RIA Open.ipynb**
 
