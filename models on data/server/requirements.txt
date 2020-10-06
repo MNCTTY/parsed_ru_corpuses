@@ -1,0 +1,6 @@
+pandas
+argparse
+deeppavlov
+git+https://github.com/deepmipt/fastText.git#egg=fastText==0.8.22 
+pymorphy2
+pymorphy2-dicts-ru

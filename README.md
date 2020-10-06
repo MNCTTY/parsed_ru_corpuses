@@ -37,4 +37,43 @@ All data sourses can be found by provided links:
   * **[Collection3]** <http://labinform.ru/pub/named_entities/descr_ne.htm>
   * **[rbc]** <https://drive.google.com/drive/u/0/folders/1meQQrEa45PkSmBmgMbPiMUppXLWXEhR7>
   * **[RBC lighttag annotated]** <https://drive.google.com/drive/u/0/folders/1meQQrEa45PkSmBmgMbPiMUppXLWXEhR7>
+
+
+Also this repo contains old repo called 'nlp' that contained Bert models to which parsed ru corpuses data were sent. For sake of legacy I decided to keep them all and unite, since I did this stuff very long time ago for one united project.
+
+
+-- -- -- -- nlp read.me
+
+# nlp
+
+Here are Kashgari implementation of NER task with rubert / multi bert embeddings. In server folder deeppavlov NER implementation can be found in format, that are ready to deploy on server. Must warn, that leaks of memory and often breakdowns characterize it very well.
+
+## Some important to understanding and inspiration links:
+
+* **[Google Researh Bert]**(https://github.com/google-research/bert)
+
+* **[Collection of BERT resources for every task that you ever need]**(https://github.com/Jiakui/awesome-bert)
+
+That are an original implementation of BERT by Google and a collection of custom libs with BERT implementations for different tasks and in diffirent variations. You'll find there something for baseline for sure. 
+
+* **[The Illustrated BERT, ELMo, and co.]**(https://jalammar.github.io/illustrated-bert/v)
+
+The most complete and cool visualised article about modern nlp architectures, such as BERT, ELMo, ULMFit - what are they, how and what for they were created, diffirencies.
+
+* **[Туториал по запуску BERT локально и на Google Colab]**(https://habr.com/ru/post/436878/)
+
+
+* **[Complexity / generalization /computational cost in modern applied NLP for morphologically rich languages]**(https://spark-in.me/post/bert-pretrain-ru)
+
+A criticism of Bert.
+
+* **[Sequence Tagging with Tensorflow]**(https://guillaumegenthial.github.io/sequence-tagging-with-tensorflow.html)
+
+* **[Tensorflow - Named Entity Recognition]**(https://github.com/guillaumegenthial/tf_ner)
+
+That are very complete and visualised articles about NER task itself,  and its implementation, builded on pure Tensorflow without hypefull stuff. What's just Doc has recommended. 
+
+* **[DeepPavlov NER](http://docs.deeppavlov.ai/en/master/components/ner.html)**
+
+
   
