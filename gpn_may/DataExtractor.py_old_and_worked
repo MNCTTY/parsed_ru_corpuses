@@ -1,0 +1,277 @@
+###--- --- --- --- old
+from PIL import Image 
+import pytesseract 
+import sys 
+from pdf2image import convert_from_path 
+import os 
+import glob
+
+import pandas as pd
+import re
+from rusenttokenize import ru_sent_tokenize
+import itertools
+from pymorphy2 import MorphAnalyzer
+import collections
+from collections import Counter, defaultdict
+import numpy as np
+from string import punctuation
+from nltk.corpus import stopwords
+import nltk
+
+
+
+###---- --- --- my
+
+from rusenttokenize import ru_sent_tokenize
+import glob
+from deeppavlov import configs, build_model
+
+
+
+### ---- ---- ---- --- Julia
+import pandas as pd
+import re
+import os
+from rusenttokenize import ru_sent_tokenize
+import itertools
+from pymorphy2 import MorphAnalyzer
+import collections
+from collections import Counter, defaultdict
+import numpy as np
+from string import punctuation
+from nltk.tokenize import WordPunctTokenizer
+from nltk.corpus import stopwords
+import nltk
+import pickle
+import configparser
+from deeppavlov.models.embedders.elmo_embedder import ELMoEmbedder
+
+from tqdm import tqdm
+from copy import deepcopy
+from PIL import Image 
+import pytesseract 
+import sys 
+from pdf2image import convert_from_path 
+import glob
+
+morph = MorphAnalyzer()
+nltk.download('stopwords')
+
+### --- --- --- --- 
+
+class Result:
+    def __init__(self):
+        
+        self.price = []        
+        self.duration = []        
+        self.quality = []
+        
+        self.punkt = [] 
+        
+        self.full_text = ''
+
+    
+
+class DataExtractor:
+    def __init__(self):
+        self.result = Result()
+        self.ner_model = build_model(configs.ner.ner_ontonotes_bert_mult, download=True)
+        self.elmo = ELMoEmbedder("http://files.deeppavlov.ai/deeppavlov_data/elmo_ru-news_wmt11-16_1.5M_steps.tar.gz")
+
+        pickle_path = '/var/www/gpn-sak-test/dog_data' ###################################### путь вроде указала
+        
+        dog_file = open(os.path.join(pickle_path, 'dog_articles.pkl'), 'rb')
+        self.index2article = pickle.load(dog_file)
+        dog_file.close()
+        
+        emb_file = open(os.path.join(pickle_path, 'dog_embs_elmo.pkl'), 'rb')
+        self.index2emb = pickle.load(emb_file)
+        emb_file.close()
+    
+    @staticmethod
+    def get_text(pdf_path):
+        pages = convert_from_path(pdf_path, 500) 
+        image_counter = 1
+        text_full = []
+
+        for page in pages: 
+            text = str(((pytesseract.image_to_string(page, lang="rus+eng"))))
+            image_counter += 1
+            text_full.append(text)
+                        
+        return text_full
+    
+    @staticmethod
+    def prepare_for_ner(text):
+        
+        start = 'Уважаемый'
+        end = 'С уважением'
+        start_i = text.find(start)
+        end_i = text.find(end)
+
+        if start_i == -1 and end_i != -1:
+            text = text[:end_i]
+        if start_i != -1 and end_i == -1:
+            text = text[start_i:]
+        if start_i == -1 and end_i == -1:
+            text = text
+        if start_i != -1 and end_i != -1:
+            text = text[start_i:end_i]
+
+        text = text.replace('\n', '')
+
+        return text
+
+
+    def ner(self, text):
+        koef = 270
+        potentially_broke = []
+
+        try:
+            result = self.ner_model([text])
+        except RuntimeError:
+            result = []
+            words = []
+            tags = []
+            sentences = ru_sent_tokenize(text)
+            for i in range(0, len(sentences)):
+                if len(sentences[i].split(' '))>koef:
+                    sentences[i] = ' '.join(sentences[i].split(' ')[:koef])
+
+
+            for sentence in sentences:
+                try:
+                    result_sent = self.ner_model([sentence])
+                    words += result_sent[0][0] 
+                    tags += result_sent[1][0]
+                except:
+                    potentially_broke.append(sentence)
+                    print('Potentially broke sentence')
+                    print(sentence)
+
+            result += [words], [tags]
+
+
+        dates = []
+        for j in range(0, len(result[1][0])):
+            if 'DATE' in result[1][0][j]:
+                if result[1][0][j] == 'B-DATE':
+                    dates.append(' ')
+                dates.append(result[0][0][j])
+
+
+        all_tagged_dates = '_'.join(dates)
+        all_tagged_dates = all_tagged_dates.split(' ')[1:]
+        for i in range(0, len(all_tagged_dates)):
+            all_tagged_dates[i] = all_tagged_dates[i].replace('_', ' ')
+            all_tagged_dates[i] = all_tagged_dates[i].lstrip()
+            all_tagged_dates[i] = all_tagged_dates[i].rstrip()
+
+
+        money = []
+        for j in range(0, len(result[1][0])):
+            if 'MONEY' in result[1][0][j]:
+                if result[1][0][j] == 'B-MONEY':
+                    money.append(' ')
+                money.append(result[0][0][j])
+
+
+        all_tagged_money = '_'.join(money)
+        all_tagged_money = all_tagged_money.split(' ')[1:]
+        for i in range(0, len(all_tagged_money)):
+            all_tagged_money[i] = all_tagged_money[i].replace('_', ' ')
+            all_tagged_money[i] = all_tagged_money[i].lstrip()
+            all_tagged_money[i] = all_tagged_money[i].rstrip()
+
+        cardinals = []
+        for j in range(0, len(result[1][0])):
+            if 'CARDINAL' in result[1][0][j]:
+                if result[1][0][j] == 'B-CARDINAL':
+                    cardinals.append(' ')
+                cardinals.append(result[0][0][j])
+
+
+        all_tagged_cardinals = '_'.join(cardinals)
+        all_tagged_cardinals = all_tagged_cardinals.split(' ')[1:]
+        for i in range(0, len(all_tagged_cardinals)):
+            all_tagged_cardinals[i] = all_tagged_cardinals[i].replace('_', ' ')
+            all_tagged_cardinals[i] = all_tagged_cardinals[i].lstrip()
+            all_tagged_cardinals[i] = all_tagged_cardinals[i].rstrip()
+            
+        res_dic = {'dates': all_tagged_dates, 'money': all_tagged_money, 'cardinals': all_tagged_cardinals}
+        
+        self.result.price = all_tagged_money
+        self.result.duration = all_tagged_dates
+        
+        return 'Ner Done'
+    
+    
+    def quality_extraction(self, text):
+        self.result.quality = 'None'
+        
+        return 'Quality Extraction Done'
+    
+    def add_text(self, text):
+        
+        self.result.full_text = text #' '.join(text)
+        
+        return 'Text has added to result'
+    
+    
+    @staticmethod
+    def normalize(text):
+        stops = set(stopwords.words('russian'))
+        normalized_text = text.replace('\n', ' ')
+        normalized_text = re.sub('(?:(?:https?):\/\/)?[\w/\-?=%.]+\.[\w/\-?=%.]+', '', normalized_text)
+        wordpunct_tokenize = WordPunctTokenizer().tokenize
+        normalized_text = wordpunct_tokenize(normalized_text)
+        normalized_text = [word.replace('№', '') for word in normalized_text]
+        normalized_text = [re.sub(r'\d+(?:\.\d+)?', '', word)  for word in normalized_text]
+        normalized_text = [morph.parse(word.lower())[0].normal_form for word \
+                                            in normalized_text if word not in punctuation+'«»']
+        normalized_text = [word.strip(punctuation) for word in normalized_text if word not in stops]
+        normalized_text = ' '.join(normalized_text)
+        normalized_text = re.sub(' +', ' ', normalized_text)
+
+        return normalized_text
+            
+       
+    def punkt_find(self, text):
+       
+        text = self.normalize(text)
+        emb_tgt = self.elmo([text.split()])
+        
+        dic = {}
+        for key, value in self.index2emb.items():
+            score = np.inner(value, emb_tgt) / (
+                        np.linalg.norm(value) * (np.linalg.norm(emb_tgt)))
+            dic.update({score[0][0]: key})
+        od = collections.OrderedDict(sorted(dic.items(), reverse=True))
+        label = list(od.values())[0]
+        
+        self.result.punkt = self.index2article[label][0][0]
+                      
+        return 'Punkt has found'
+        
+    def get_result(self):
+        
+        print('ready to return result')
+    
+        return self.result
+    
+    def process_pdf(self, pdf_path):
+        text = self.get_text(pdf_path)
+        
+        text = self.prepare_for_ner(' '.join(text))
+               
+        self.ner(text)
+        self.quality_extraction(text)
+        self.add_text(text)
+        
+        self.punkt_find(text)
+        
+        result = self.get_result()
+
+        return result
+    
+    
